@@ -25,7 +25,7 @@ export class ReqFastPromise {
     async request(method, url, options = {}) {
         if (options.params && _.size(_.keys(options.params))) {
             const uri = URL.parse(url)
-            let params = _.reduce(uri.query.split('&'), (params, query) => {
+            let params = _.reduce((uri.query || '').split('&'), (params, query) => {
                 const argv = query.split('=')
                 params[argv[0]] = argv[1]
                 return params
