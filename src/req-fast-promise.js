@@ -25,7 +25,6 @@ export class ReqFastPromise {
     }
     extends(options) {
         const extendOptions = _.merge({}, this.defaults, options)
-        console.log({ extendOptions })
         return this.create(extendOptions)
     }
     async request(method, url, options = {}) {
