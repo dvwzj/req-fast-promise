@@ -23,6 +23,9 @@ export class ReqFastPromise {
     create(options) {
         return new ReqFastPromise(options)
     }
+    extends(options) {
+        return this.create(_.merge({}, this.defaults, options))
+    }
     async request(method, url, options = {}) {
         if (options.baseURL && !url.startsWith('http')) {
             url = `${_.trim(options.baseURL, '/')}/${_.trim(url, '/')}`
