@@ -6,6 +6,7 @@ import _ from 'lodash'
 export class ReqFastPromise {
     constructor(options) {
         this.defaults = _.defaults({
+            baseURL: undefined,
             timeout: undefined,
             dataType: undefined,
             agent: undefined,
@@ -23,6 +24,9 @@ export class ReqFastPromise {
         return new this(options)
     }
     async request(method, url, options = {}) {
+        if (options.baseURL && !url.startsWith('http')) {
+            url = `${_.trim(options.baseURL, '/')}/${_.trim(url, '/')}`
+        }
         if (options.params && _.size(_.keys(options.params))) {
             const uri = URL.parse(url)
             let params = _.reduce((uri.query || '').split('&'), (params, query) => {
