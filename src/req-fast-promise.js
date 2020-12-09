@@ -24,33 +24,36 @@ export class ReqFastPromise {
         return new ReqFastPromise(options)
     }
     extends(options) {
-        return this.create(_.merge({}, this.defaults, options))
+        const extendOptions = _.merge({}, this.defaults, options)
+        console.log({ extendOptions })
+        return this.create(extendOptions)
     }
     async request(method, url, options = {}) {
+        options = _.merge(
+            {},
+            this.defaults,
+            options,
+            {
+                method,
+                url
+            }
+        )
         if (options.baseURL) {
-            url = `${_.trim(options.baseURL, '/')}/${_.trim(url, '/')}`
+            options.url = `${_.trim(options.baseURL, '/')}/${_.trim(options.url, '/')}`
         }
         if (options.params && _.size(_.keys(options.params))) {
-            const uri = URL.parse(url)
+            const uri = URL.parse(options.url)
             let params = _.reduce((uri.query || '').split('&'), (params, query) => {
                 const argv = query.split('=')
                 params[argv[0]] = argv[1]
                 return params
             }, {})
             params = _.merge(params, options.params)
-            url = `${uri.protocol}//${uri.hostname}${uri.port ? `:${uri.port}`: ''}${uri.pathname ? uri.pathname : ''}?${querystring.stringify(params)}`
+            options.url = `${uri.protocol}//${uri.hostname}${uri.port ? `:${uri.port}`: ''}${uri.pathname ? uri.pathname : ''}?${querystring.stringify(params)}`
         }
         return new Promise((resolve, reject) => {
             const request = req(
-                _.merge(
-                    {},
-                    this.defaults,
-                    options,
-                    {
-                        method,
-                        url
-                    }
-                ),
+                options,
                 (error, response) => {
                     if (error) {
                         error.request = request
