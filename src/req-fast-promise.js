@@ -27,7 +27,7 @@ export class ReqFastPromise {
         return this.create(_.merge({}, this.defaults, options))
     }
     async request(method, url, options = {}) {
-        if (options.baseURL && !url.startsWith('http')) {
+        if (options.baseURL) {
             url = `${_.trim(options.baseURL, '/')}/${_.trim(url, '/')}`
         }
         if (options.params && _.size(_.keys(options.params))) {
