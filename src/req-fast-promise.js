@@ -21,7 +21,7 @@ export class ReqFastPromise {
         }, options)
     }
     create(options) {
-        return new this(options)
+        return new ReqFastPromise(options)
     }
     async request(method, url, options = {}) {
         if (options.baseURL && !url.startsWith('http')) {
