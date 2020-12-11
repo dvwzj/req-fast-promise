@@ -48,6 +48,12 @@ export class ReqFastPromise {
                 return params
             }, {})
             params = _.merge(params, options.params)
+            params = _.reduce(_.keys(params), (obj, key) => {
+                if (key) {
+                    obj[key] = params[key]
+                }
+                return obj
+            }, {})
             options.url = `${uri.protocol}//${uri.hostname}${uri.port ? `:${uri.port}`: ''}${uri.pathname ? uri.pathname : ''}?${querystring.stringify(params)}`
         }
         return new Promise((resolve, reject) => {
