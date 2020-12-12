@@ -56,6 +56,18 @@ export class ReqFastPromise {
             }, {})
             options.url = `${uri.protocol}//${uri.hostname}${uri.port ? `:${uri.port}`: ''}${uri.pathname ? uri.pathname : ''}?${querystring.stringify(params)}`
         }
+        const headers = _.clone(options.headers)
+        Object.defineProperty(options, 'headers', {
+            get() {
+                return headers
+            },
+            set($headers) {
+                _.merge(headers, $headers)
+                if (!headers.cookie) {
+                    delete headers.cookie
+                }
+            }
+        })
         return new Promise((resolve, reject) => {
             const request = req(
                 options,
@@ -77,6 +89,7 @@ export class ReqFastPromise {
                     }
                 }
             )
+            return request
         })
     }
     async get(url, options = {}) {
