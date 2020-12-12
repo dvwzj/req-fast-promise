@@ -38,7 +38,7 @@ export class ReqFastPromise {
             }
         )
         if (options.baseURL && !options.url.startsWith('http')) {
-            options.url = `${_.trim(options.baseURL, '/')}/${options.url}`
+            options.url = `${_.trim(options.baseURL, '/')}${(options.url.startsWith('/') ? '' : '/') + options.url}`
         }
         if (options.params && _.size(_.keys(options.params))) {
             const uri = URL.parse(options.url)
