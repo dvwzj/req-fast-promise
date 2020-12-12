@@ -18,6 +18,7 @@ export class ReqFastPromise {
             cookies: undefined,
             headers: undefined,
             proxy: undefined,
+            removeAcceptEncoding: true,
         }, options)
     }
     create(options) {
@@ -59,6 +60,9 @@ export class ReqFastPromise {
         let headers = _.clone(options.headers)
         Object.defineProperty(options, 'headers', {
             get() {
+                if (headers && options.removeAcceptEncoding) {
+                    delete headers['accept-encoding']
+                }
                 return headers
             },
             set($headers) {
