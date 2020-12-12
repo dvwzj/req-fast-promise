@@ -56,14 +56,14 @@ export class ReqFastPromise {
             }, {})
             options.url = `${uri.protocol}//${uri.hostname}${uri.port ? `:${uri.port}`: ''}${uri.pathname ? uri.pathname : ''}?${querystring.stringify(params)}`
         }
-        const headers = _.clone(options.headers)
+        let headers = _.clone(options.headers)
         Object.defineProperty(options, 'headers', {
             get() {
                 return headers
             },
             set($headers) {
-                _.merge(headers, $headers)
-                if (!headers.cookie) {
+                headers = $headers
+                if (headers && !headers.cookie) {
                     delete headers.cookie
                 }
             }
