@@ -18,9 +18,6 @@ export class ReqFastPromise {
             cookies: undefined,
             headers: undefined,
             proxy: undefined,
-            removeAcceptEncoding: true,
-            removePragma: true,
-            removeCacheControl: true,
         }, options)
     }
     create(options) {
@@ -59,18 +56,10 @@ export class ReqFastPromise {
             }, {})
             options.url = `${uri.protocol}//${uri.hostname}${uri.port ? `:${uri.port}`: ''}${uri.pathname ? uri.pathname : ''}?${querystring.stringify(params)}`
         }
+        options.url = decodeURIComponent(options.url)
         let headers = _.clone(options.headers)
         Object.defineProperty(options, 'headers', {
             get() {
-                if (headers && options.removeAcceptEncoding) {
-                    delete headers['accept-encoding']
-                }
-                if (headers && options.removePragma) {
-                    delete headers.pragma
-                }
-                if (headers && options.removeCacheControl) {
-                    delete headers['cache-control']
-                }
                 return headers
             },
             set($headers) {
