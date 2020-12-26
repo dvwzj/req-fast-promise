@@ -1,6 +1,6 @@
 {
   "name": "req-fast-promise",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "req-fast with promise",
   "main": "lib/index.js",
   "scripts": {
