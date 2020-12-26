@@ -1,4 +1,4 @@
-import querystring from 'querystring'
+import qs from 'qs'
 import URL from 'url'
 import req from 'req-fast'
 import _ from 'lodash'
@@ -54,7 +54,7 @@ export class ReqFastPromise {
                 }
                 return obj
             }, {})
-            options.url = `${uri.protocol}//${uri.hostname}${uri.port ? `:${uri.port}`: ''}${uri.pathname ? uri.pathname : ''}?${querystring.stringify(params)}`
+            options.url = `${uri.protocol}//${uri.hostname}${uri.port ? `:${uri.port}`: ''}${uri.pathname ? uri.pathname : ''}?${qs.stringify(params)}`
         }
         options.url = decodeURIComponent(options.url)
         let headers = _.clone(options.headers)

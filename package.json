@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.20",
+    "qs": "^6.9.4",
     "req-fast": "^0.2.21"
   },
   "devDependencies": {
