@@ -56,7 +56,7 @@ export class ReqFastPromise {
             }, {})
             options.url = `${uri.protocol}//${uri.hostname}${uri.port ? `:${uri.port}`: ''}${uri.pathname ? uri.pathname : ''}?${qs.stringify(params)}`
         }
-        options.url = decodeURIComponent(options.url)
+        options.url = decodeURI(options.url)
         let headers = _.clone(options.headers)
         Object.defineProperty(options, 'headers', {
             get() {
